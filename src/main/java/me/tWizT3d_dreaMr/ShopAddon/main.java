@@ -60,14 +60,14 @@ public void onEnable()  {
         getConfig().addDefault("Command.IncorrectUsage", "&cIncorrect usage!");
         getConfig().addDefault("Command.NoPerms", "&cYou dont have permission!");
         getConfig().addDefault("Command.NotANumber", "&cThat isn't a valid number!");
-        getConfig().addDefault("Command.LoggingOn", "&#11fb76Check logging on!");
-        getConfig().addDefault("Command.LoggingOff", "&#de723fCheck logging off!");
+        getConfig().addDefault("Command.LoggingOn", "&aCheck logging on!");
+        getConfig().addDefault("Command.LoggingOff", "&cCheck logging off!");
     	getConfig().options().copyDefaults(true);
     	saveConfig();
     }
     
 	config=getConfig();
-	Bukkit.getPluginManager().registerEvents(new CheckOn(),this);
+	//Bukkit.getPluginManager().registerEvents(new CheckOn(),this);
 	
 	if(getConfig().getBoolean("Logging.Enable")){	
 		ConfigurationSection s=getConfig().getConfigurationSection("Logging.SQL");
