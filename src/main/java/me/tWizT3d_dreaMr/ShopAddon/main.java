@@ -59,11 +59,14 @@ public void onEnable()  {
         getConfig().addDefault("Command.OnlyPlayers", "&cOnly players can use this command!");
         getConfig().addDefault("Command.IncorrectUsage", "&cIncorrect usage!");
         getConfig().addDefault("Command.NoPerms", "&cYou dont have permission!");
-        getConfig().addDefault("Command.NotANumber", "&cThat isn't a valid number!");
+        getConfig().addDefault("Command.NotAArgumentr", "&cThat isn't a valid Argument!");
         getConfig().addDefault("Command.LoggingOn", "&aCheck logging on!");
         getConfig().addDefault("Command.LoggingOff", "&cCheck logging off!");
     	getConfig().options().copyDefaults(true);
     	saveConfig();
+    }
+    if(getConfig().get("Command.NotAArgumentr")==null) {
+        getConfig().addDefault("Command.NotAArgumentr", "&cThat isn't a valid Argument!");
     }
     
 	config=getConfig();
@@ -100,7 +103,12 @@ public boolean onCommand(CommandSender sender, Command command, String label, St
 		  if(args[0].equalsIgnoreCase("check")) {
 				if(isNumeric(args[1])&&(Integer.parseInt(args[1])-1)>=0) {
 					ShopLogging.sendPage(Integer.parseInt(args[1])-1, p );
-				} else p.sendMessage(Format.format( config.getString("Command.NotANumber")));
+				}else {
+					Player getp=getPlayer(args[1]);
+					if(getp!=null) {
+						ShopLogging.getResultsFromPlayer(getp, p);
+					}
+					else p.sendMessage(Format.format( config.getString("Command.NotAArgumentr")));}
 		  }
 	  } else {
 			  sender.sendMessage(Format.format( config.getString("Command.IncorectUsage")));
@@ -108,7 +116,16 @@ public boolean onCommand(CommandSender sender, Command command, String label, St
 		  return true;
 	  }
 	  return false;
+
 	}
+private Player getPlayer(String s) {
+	Player backup=null;
+for(Player p:Bukkit.getOnlinePlayers()) {
+	if(p.getName().equalsIgnoreCase(s)) return p;
+	else if(p.getUniqueId().toString().equalsIgnoreCase(s)) backup= p;
+}
+return backup;
+}
 public static CreationCheck getCreationCheck() {
 	return creationCheck;
 }
