@@ -242,4 +242,12 @@ public ShopLogging(String host,int port, String database,String username,String 
 		return result;
 		
 	}
+	public static LoggingPlayer getLoggingPlayer(Player p) {
+		for(LoggingPlayer LP:LPS) {
+			if(LP.isName(p.getName())) {
+				return LP;
+			}
+		}
+		return null;
+	}
 }
