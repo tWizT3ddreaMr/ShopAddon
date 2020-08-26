@@ -12,6 +12,9 @@ public LoggingPlayer(ArrayList<String> arrayList, String pname) {
 public boolean isName(String pn) {
 	return pname.equals(pn);
 }
+public int getPageAmount() {
+	return ((al.size()/main.getCon().getInt("Logging.PageSize")));
+}
 public ArrayList<String> message(int pag){
 	int size=main.getCon().getInt("Logging.PageSize");
 	ArrayList<String> ret=new ArrayList<String>();
