@@ -8,6 +8,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
+import com.snowgears.shop.ShopType;
+
 public class CreationCheck {
 private YamlConfiguration listfile;
 private boolean whitelist;
@@ -18,12 +20,15 @@ public CreationCheck(YamlConfiguration from,boolean wh) {
 	whitelist=wh;
 }
 
-public String testfor(ItemStack i, double price, int amount) {
+public String testfor(ItemStack i, double price, int amount,ShopType st) {
 	if(i == null) return "none";
 	ConfigurationSection section = listfile.getConfigurationSection("itemListing");
 	for(String sec:section.getKeys(false)) {
 		ConfigurationSection testfor=listfile.getConfigurationSection("itemListing."+sec);
 			//material check
+			if(testfor.contains("shoptype"))
+				if(!st.toString().equalsIgnoreCase(testfor.getString("shoptype")))
+					continue;
 			if(testfor.getString("material")==null) 
 				continue;
 			if(i.getType() != Material.getMaterial(testfor.getString("material").toUpperCase())) continue;
@@ -48,7 +53,6 @@ public String testfor(ItemStack i, double price, int amount) {
 					} else continue;
 				} else continue;
 			}
-			System.out.println("match");
 			//ListType is important
 			if(testfor.getString("ListType") != null) {
 				String type=testfor.getString("ListType");
