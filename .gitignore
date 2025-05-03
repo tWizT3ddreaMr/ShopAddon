@@ -1,4 +1,4 @@
-.DS_Store
+
 *.jar
 *.prefs
 .project
@@ -10,8 +10,3 @@ target/classes/plugin.yml
 target/classes/plugin.yml
 /bin/
 /target/
-.factorypath
-*.bat
-.gitattributes
-.settings
-lib
